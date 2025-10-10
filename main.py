@@ -42,6 +42,9 @@ def is_edge(y: int, x: int) -> bool:
 def is_inside(y: int, x: int) -> bool:
     return 0 <= y < r and 0 <= x < c
 
+# TODO: verify that game is playable given the mushrooms and trees. 
+# it is possible that the game is not winnable if there are say less pickaxes than trees covering the mushrooms
+
 def init_grid():
     # initialize the grid
     grid = [list("T" if is_edge(R,C) else "." for C in range(c)) for R in range(r)]
