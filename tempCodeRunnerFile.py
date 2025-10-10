@@ -18,7 +18,6 @@ characters = {
     "laro": "L",
     "pickaxe": "x",
     "flamethrower": "*",
-    "paved tile": "-"
 }
 
 # the quantity of the mushrooms will be randomized
@@ -140,6 +139,7 @@ def print_grid():
     for subgrid in grid:
         print(subgrid)
         
+print_grid()
 i, j = curr_location[0]
 
 def ending_screen(status: str) -> None:
@@ -195,7 +195,7 @@ def do_mushroom(
     y: int,
     x: int,
 ):
-    global num_mushrooms, collected_mushrooms, grid
+    global num_mushrooms, collected_mushrooms
     grid[y][x] = characters["empty"]
     grid[i][j] = characters["empty"]
     num_mushrooms -= 1
@@ -207,23 +207,21 @@ def do_mushroom(
 
 
 def do_rock(i: int, j: int, y: int, x: int):
-    global grid
     direction = get_direction(i, j, y, x)
-    print(f"direction = {direction}")
 
-    if direction == "up" and grid[y + 1][x] in (characters["water"], characters["empty"], characters["paved tile"]):
+    if direction == "up" and grid[y + 1][x] != characters["rock"]:
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y + 1][x] = characters["rock"]
-    elif direction == "down" and grid[y - 1][x] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "down" and grid[y - 1][x] != characters["rock"]:
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y - 1][x] = characters["rock"]
-    elif direction == "left" and grid[y][x + 1] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "left" and grid[y][x + 1] != characters["rock"]:
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y][x + 1] = characters["rock"]
-    elif direction == "right" and grid[y][x - 1] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "right" and grid[y][x - 1] != characters["rock"]:
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y][x - 1] = characters["rock"]
@@ -240,7 +238,6 @@ def do_water() -> None:
 
 
 def do_empty(i: int, j: int, y: int, x: int) -> list:
-    global grid
     grid[y][x] = characters["laro"]
     grid[i][j] = characters["empty"]
     return [y, x]
