@@ -18,7 +18,7 @@ characters = {
     "laro": "L",
     "pickaxe": "x",
     "flamethrower": "*",
-    "paved tile": "-"
+    "paved tile": "-",
 }
 
 # the quantity of the mushrooms will be randomized
@@ -135,12 +135,15 @@ def init_grid():
 
 grid = init_grid()
 
+
 def print_grid():
     global grid
     for subgrid in grid:
         print(subgrid)
-        
+
+
 i, j = curr_location[0]
+
 
 def ending_screen(status: str) -> None:
     if status == "win":
@@ -211,19 +214,35 @@ def do_rock(i: int, j: int, y: int, x: int):
     direction = get_direction(i, j, y, x)
     print(f"direction = {direction}")
 
-    if direction == "up" and grid[y + 1][x] in (characters["water"], characters["empty"], characters["paved tile"]):
+    if direction == "up" and grid[y + 1][x] in (
+        characters["water"],
+        characters["empty"],
+        characters["paved tile"],
+    ):
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y + 1][x] = characters["rock"]
-    elif direction == "down" and grid[y - 1][x] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "down" and grid[y - 1][x] in (
+        characters["water"],
+        characters["empty"],
+        characters["paved tile"],
+    ):
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y - 1][x] = characters["rock"]
-    elif direction == "left" and grid[y][x + 1] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "left" and grid[y][x + 1] in (
+        characters["water"],
+        characters["empty"],
+        characters["paved tile"],
+    ):
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y][x + 1] = characters["rock"]
-    elif direction == "right" and grid[y][x - 1] in (characters["water"], characters["empty"], characters["paved tile"]):
+    elif direction == "right" and grid[y][x - 1] in (
+        characters["water"],
+        characters["empty"],
+        characters["paved tile"],
+    ):
         grid[i][j] = characters["empty"]
         grid[y][x] = characters["laro"]
         grid[y][x - 1] = characters["rock"]
@@ -255,15 +274,27 @@ def get_user_input(commands: str):
             y = i - 1
             x = j
             item = determine_object(y, x)
-        
-        elif cmd.lower() in ('s'):
+
+        elif cmd.lower() in ("s"):
             y = i + 1
             x = j
             item = determine_object(y, x)
             
+        elif cmd.lower() in ("d"):
+            y = i
+            x = j + 1
+            item = determine_object(y, x)
+
+            
+        elif cmd.lower() in ("a"):
+            y = i
+            x = j - 1
+            item = determine_object(y, x)
+
+
         print(f"item = {item}")
         print(f"i = {i}, j = {j}\ny = {y}, x = {x}\n")
-            
+
         if item == "empty":
             curr_location = do_empty(i, j, y, x)
         elif item == "mushroom":
@@ -274,10 +305,10 @@ def get_user_input(commands: str):
             curr_location = do_tree()
         elif item == "water":
             do_water()
-        
+
         i, j = curr_location
-        
+
         print(f"current location = {curr_location}")
 
 
-get_user_input("wwwss")
+get_user_input("wasdwasddsaw")
