@@ -231,8 +231,9 @@ def do_rock(i: int, j: int, y: int, x: int):
     return [y, x]
 
 
-def do_tree() -> None:
-    pass
+def do_tree():
+    global i, j
+    return [i, j]
 
 
 def do_water() -> None:
@@ -247,29 +248,36 @@ def do_empty(i: int, j: int, y: int, x: int) -> list:
 
 
 def get_user_input(commands: str):
-    global i, j, curr_location
+    global i, j, curr_location, item, x, y
     for cmd in commands:
         print_grid()
-        if cmd.lower() in ("w", "u"):
+        if cmd.lower() in ("w"):
             y = i - 1
             x = j
-            item = determine_object(i - 1, j)
-
-            print(f"item = {item}")
-            print(f"i = {i}, j = {j}\ny = {y}, x = {x}\n")
-
+            item = determine_object(y, x)
+        
+        elif cmd.lower() in ('s'):
+            y = i + 1
+            x = j
+            item = determine_object(y, x)
             
+        print(f"item = {item}")
+        print(f"i = {i}, j = {j}\ny = {y}, x = {x}\n")
             
-            if item == "empty":
-                curr_location = do_empty(i, j, y, x)
-            elif item == "mushroom":
-                curr_location = do_mushroom(i, j, y, x)
-            elif item == "rock":
-                curr_location = do_rock(i, j, y, x)
-            
-            i, j = curr_location
-            
-            print(f"current location = {curr_location}")
+        if item == "empty":
+            curr_location = do_empty(i, j, y, x)
+        elif item == "mushroom":
+            curr_location = do_mushroom(i, j, y, x)
+        elif item == "rock":
+            curr_location = do_rock(i, j, y, x)
+        elif item == "tree":
+            curr_location = do_tree()
+        elif item == "water":
+            do_water()
+        
+        i, j = curr_location
+        
+        print(f"current location = {curr_location}")
 
 
-get_user_input("www")
+get_user_input("wwwss")
