@@ -22,7 +22,7 @@ characters = {
     "laro": "L",
     "pickaxe": "x",
     "flamethrower": "*",
-    "paved tile": "-",
+    "paved tile": "-",  
 }
 
 # the quantity of the mushrooms will be randomized
@@ -277,7 +277,7 @@ def do_empty(i: int, j: int, y: int, x: int) -> list:
     return [y, x]
 
 
-def get_user_input(commands: str):
+def execute_commands(commands: str):
     global i, j, curr_location, item, x, y
     for cmd in commands:
         print_grid()
@@ -319,5 +319,5 @@ def get_user_input(commands: str):
 
         print(f"current location = {curr_location}")
 
-def main():
-    get_user_input("wasdwasddsaw")
+if __name__ == "__main__":
+    execute_commands("wasdwasddsaw")
